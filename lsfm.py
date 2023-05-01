@@ -83,6 +83,18 @@ def is_palindrome(arg: int | str) -> bool:
     
     # Reverses the string
     return arg == arg[::-1]
+
+def count_divisors(n: int) -> int:
+    """Returns the number of divisors of a number.
+
+    Args:
+        n (int): The number whose number of divisors you want to know.
+
+    Returns:
+        int: Returns the number of divisors of n.
+    """
+    l = generate_divisors(n)
+    return len(l)
     
 # Generators
 def generate_fibonacci_until_n(n: int) -> list:
@@ -123,20 +135,26 @@ def generate_divisors(n: int) -> list:
     
     # Initializing variables
     divisors = [1]
+    
+    # Checking if n is 1
+    if n == 1:
+        return divisors
+    
     div = 2
     upper_bound = math.ceil(math.sqrt(n))
     
-    while div < upper_bound:
+    while div <= upper_bound:
         if n % div == 0:
             divisors.append(div)
-            divisors.append(n / div)
+            divisors.append(n // div)
         div += 1
     
     divisors.append(n)
-    
     # Removing duplicated using set and list
     divisors = list(set(divisors))
-    return divisors.sort()
+    divisors.sort()
+    #print(f"Div: {divisors} - Length {len(divisors)}")
+    return divisors
     
 def generate_prime_factors(n: int) -> list:
     """Decomposes a number into its prime factors.
@@ -214,7 +232,7 @@ def sum_of_natural_numbers(n: int) -> int:
     Returns:
         int: The sum of all natural numbers from 1 to n.
     """
-    return int((n * (n - 1) / 2)) + n
+    return int((n * (n + 1) / 2))
 
 def sum_of_squared_numbers(n: int) -> int:
     """Returns the sum of squared natural numbers from 1 to n.
@@ -226,3 +244,38 @@ def sum_of_squared_numbers(n: int) -> int:
         int: The sum of all squared natural numbers from 1 to n.
     """
     return int((n * (n + 1) * (2 * n + 1)) / 6)
+
+def nth_polygonal_number(index: int, sides: int) -> int:
+    """Generates the index-th sides-gonal number.
+
+    Args:
+        index (int): The index of your polygonal number.
+        sides (int): The number of sides of your polygon.
+
+    Returns:
+        int: The index-th sides-gonal number.
+    """
+    return int((sides - 2) * index * (index - 1) / 2) + index
+
+def nth_triangular_number(n: int) -> int:
+    """Generates the nth triangle number.
+
+    Args:
+        n (int): The index of the triangle number.
+
+    Returns:
+        int: The nth triangle number.
+    """
+    return nth_polygonal_number(n, 3)
+
+def nth_square_number(n: int) -> int:
+    """Generates the nth square number.
+    Most useless function ever?
+
+    Args:
+        n (int): The index of the square number.
+
+    Returns:
+        int: The nth square number.
+    """
+    return n ** 2
