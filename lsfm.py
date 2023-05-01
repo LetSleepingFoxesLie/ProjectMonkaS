@@ -68,6 +68,14 @@ def is_prime(n: int) -> bool:
     # If div has reached upper_bound, then it's a prime number!
     return True
 
+def is_palindrome(arg = int | str) -> bool:
+    
+    if type(arg) is not str:
+        arg = str(arg)
+    
+    # Reverses the string
+    return arg == arg[::-1]
+    
 # Generators
 def generate_fibonacci_until_n(n: int) -> list:
     """Generates a list of Fibonacci numbers until n.

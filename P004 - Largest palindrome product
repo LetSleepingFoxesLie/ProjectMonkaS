@@ -1,0 +1,8 @@
+from lsfm import is_palindrome
+
+def main():
+    palindromes_list = [r * q for q in range(100, 999) for r in range(q, 999) if is_palindrome(r * q)]
+    print(max(palindromes_list))
+    
+if __name__ == "__main__":
+    main()
