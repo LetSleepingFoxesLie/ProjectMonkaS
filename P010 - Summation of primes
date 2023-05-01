@@ -1,0 +1,16 @@
+from lsfm import is_prime
+
+def main():
+    
+    primes_below_two_million = [2]
+    dividend = 3
+    
+    while dividend <= 2000000:
+        if is_prime(dividend):
+            primes_below_two_million.append(dividend)
+        dividend += 2
+    
+    print(sum(primes_below_two_million))
+
+if __name__ == "__main__":
+    main()
