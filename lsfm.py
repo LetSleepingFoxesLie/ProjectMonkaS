@@ -68,7 +68,15 @@ def is_prime(n: int) -> bool:
     # If div has reached upper_bound, then it's a prime number!
     return True
 
-def is_palindrome(arg = int | str) -> bool:
+def is_palindrome(arg: int | str) -> bool:
+    """Checks whether arg is a palindrome.
+
+    Args:
+        arg (int | str): int or string to check whether it's a palindrome.
+
+    Returns:
+        bool: Whether arg is a palindrome.
+    """
     
     if type(arg) is not str:
         arg = str(arg)
