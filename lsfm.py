@@ -91,11 +91,21 @@ def count_divisors(n: int) -> int:
         n (int): The number whose number of divisors you want to know.
 
     Returns:
-        int: Returns the number of divisors of n.
+        int: The number of divisors of n.
     """
-    l = generate_divisors(n)
-    return len(l)
     
+    if n == 1:
+        return 1
+    
+    # Let's make this much better, shall we?
+    prime_factors = prime_factorization(n)
+    divisors = 1
+    
+    for prime in prime_factors:
+        divisors *= prime_factors[prime] + 1
+        
+    return divisors
+
 # Generators
 def generate_fibonacci_until_n(n: int) -> list:
     """Generates a list of Fibonacci numbers until n.
@@ -163,7 +173,7 @@ def generate_prime_factors(n: int) -> list:
         n (int): The number you want to decompose.
 
     Returns:
-        list: A list of the divisors of n.
+        list: A list of the prime factors of n.
     """
     
     # We're going to take a relatively inefficient approach I guess.
@@ -197,6 +207,37 @@ def generate_prime_factors(n: int) -> list:
             div += 2
     
     return prime_factors
+
+def prime_factorization(n: int) -> dict:
+    """Generates the proper factorization of a number, exponents included.
+
+    Args:
+        n (int): The number you want to factor.
+
+    Returns:
+        dict: A dict with prime factors (as keys) and exponents (as values)
+    """
+
+    d = dict()
+
+    prime = 2
+    first_pass = True
+    
+    while n != 1:
+        if n % prime == 0:
+            if prime in d.keys():
+                d[prime] += 1
+            else:
+                d[prime] = 1
+            n //= prime
+        else:
+            if first_pass:
+                prime += 1
+                first_pass = False
+            else:
+                prime += 2
+    
+    return d
 
 def generate_prime_list(n: int = 100) -> list:
     """Generates a list of the first n prime numbers.
