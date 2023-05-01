@@ -203,3 +203,26 @@ def generate_prime_list(n: int = 100) -> list:
         number += 2
         
     return prime_numbers
+
+# Computation
+def sum_of_natural_numbers(n: int) -> int:
+    """Returns the sum of natural numbers from 1 to n.
+
+    Args:
+        n (int): Maximum number.
+
+    Returns:
+        int: The sum of all natural numbers from 1 to n.
+    """
+    return (n * (n - 1) / 2)
+
+def sum_of_squared_numbers(n: int) -> int:
+    """Returns the sum of squared natural numbers from 1 to n.
+
+    Args:
+        n (int): Maximum number.
+
+    Returns:
+        int: The sum of all squared natural numbers from 1 to n.
+    """
+    return (n * (n + 1) * (2 * n * 1)) / 6
