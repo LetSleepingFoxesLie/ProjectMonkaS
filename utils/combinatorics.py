@@ -1,3 +1,5 @@
+# I wonder if I shoukld have called this file lsfp, whish stands for "let sleeping foxes permute..."
+
 def factorial(n: int) -> int:
     """Returns the factorial of n.
 
@@ -10,7 +12,10 @@ def factorial(n: int) -> int:
     if n in [0, 1]:
         return 1
     else:
-        return n * factorial(n - 1)
+        f = 1
+        for i in range(n):
+            f *= i + 1
+        return f
     
 def anagrams(word: str) -> int:
     # To be added
@@ -79,6 +84,7 @@ def permutations(n: int, k: int) -> int:
 def combinations(n: int, k: int) -> int:
     """Returns the number of combinations given (n, k).
     C(n, k) = n!(k!(n-k)!)
+    
     Args:
         n (int): n
         k (int): k
