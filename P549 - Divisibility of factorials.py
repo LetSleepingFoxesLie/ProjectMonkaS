@@ -5,19 +5,32 @@ from utils.combinatorics import factorial
 
 def main():
     # Let's try for the case of S(100) = 2012... shall we?
-    THRESHOLD = 100
+    THRESHOLD = 10**5
     
     # We're starting the sum at 1 because 1% % 1 == 0... we should start at 2, but I don't care. Let the algorithm cook!
-    SUM = 1
+    # Actually, nevermind, the thing asks us to check from 2 <= i <= n
+    SUM = 0
     
     for n in range(2, THRESHOLD + 1):
         
         # First optimization measure: if n is prime, then the smallest number m such that n divides m! is n... so m must be equal to n
         if is_prime(n):
-            s += n
+            SUM += n
+            print(f"{n} is prime!")
+            continue
         
         # Otherwise... factor n into its prime factors and iterate, from 1 to n, until m % n == 0... but we'll be cleverer... I guess?
         n_factors = prime_factorization(n)
+        
+        # And here comes the loop in which we'll check for m
+        m_factors = dict()
+        
+        SUM += get_smallest_number_m_such_that_n_divides_m_factorial(n, n_factors, m_factors)
+        
+        if n % 10000 == 0:
+            print(f"Going strong at n = {n}")
+    
+    print(f"S({THRESHOLD}) = {SUM}")
 
 def test():
     
@@ -51,7 +64,7 @@ def merge_exponents_from_dicts(q: dict, r: dict) -> dict:
         # And, if they do, we sum those pesky exponents
         if k in q and k in r:
             output_dictionary[k] = q[k] + r[k]
-    print(output_dictionary)
+    # print(output_dictionary)
     return output_dictionary
 
 def get_next_factorial(n: int, current_dict: dict) -> dict:
@@ -59,8 +72,16 @@ def get_next_factorial(n: int, current_dict: dict) -> dict:
     return merge_exponents_from_dicts(current_dict, next_factorial)
 
 # This is fugly
-def is_smallest_number_m_such_that_n_divides_m_factorial(n_factors: dict, m_factors: dict) -> bool:
-    pass
+def get_smallest_number_m_such_that_n_divides_m_factorial(upper_bound: int, n_factors: dict, m_factors: dict) -> int:
+    m = 2
+    
+    while m <= upper_bound:
+        m_factors = get_next_factorial(m, m_factors)
+        if are_exponents_in_both_dicts(n_factors, m_factors):
+            print(f"Found an m = {m}")
+            return m
+        m += 1
+    return m
 
 def are_exponents_in_both_dicts(number: dict, factorial: dict) -> bool:
     
@@ -69,22 +90,22 @@ def are_exponents_in_both_dicts(number: dict, factorial: dict) -> bool:
     f_keys = factorial.keys()
     
     # Debugging purposes:
-    print(f"Number: {number}")
-    print(f"Factorial: {factorial}")
+    # print(f"Number: {number}")
+    # print(f"Factorial: {factorial}")
     
     for key in n_keys:
         try:
-            print(f"Checking for key: {key}")
+            # print(f"Checking for key: {key}")
             if number[key] > factorial[key]:
-                print(f"Found key {key}, but of value higher than in number!")
+                # print(f"Found key {key}, but of value higher than in number!")
                 return False
         except KeyError:
-            print(f"Key {key} not found! Returning false")
+            # print(f"Key {key} not found! Returning false")
             return False
     
-    print(f"All factors in factorial found! Returning true")
+    # print(f"All factors in factorial found! Returning true")
     return True
 
 if __name__ == "__main__":
-    gnf_test()
-    # main()
+    # gnf_test()
+    main()

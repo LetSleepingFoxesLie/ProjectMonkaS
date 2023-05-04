@@ -52,11 +52,15 @@ def is_prime(n: int) -> bool:
     if n in range(0, 1):
         return False
     
-    # Case C: number is 2
+    # Case C: number is even
+    if is_even(n):
+        return False
+    
+    # Case D: number is 2
     if n == 2:
         return True
     
-    # Case D: number is 3
+    # Case E: number is 3
     # lol, no
     
     # Main loop: checking for primality with a somewhat inefficient algorithm
