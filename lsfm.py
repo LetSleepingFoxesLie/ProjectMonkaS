@@ -219,6 +219,9 @@ def prime_factorization(n: int) -> dict:
     """
 
     d = dict()
+    
+    if n == 1:
+        return {1:1}
 
     prime = 2
     first_pass = True
