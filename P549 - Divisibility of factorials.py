@@ -5,13 +5,13 @@ from utils.combinatorics import factorial
 
 def main():
     # Let's try for the case of S(100) = 2012... shall we?
-    THRESHOLD = 10**2
+    THRESHOLD = 10**4
     
     # We're starting the sum at 1 because 1% % 1 == 0... we should start at 2, but I don't care. Let the algorithm cook!
     # Actually, nevermind, the thing asks us to check from 2 <= i <= n
     SUM = 0
     
-    for n in range(99, THRESHOLD + 1):
+    for n in range(2, THRESHOLD + 1):
         
         #print(f"Looking at n = {n}")
         # Otherwise... factor n into its prime factors and iterate, from 1 to n, until m % n == 0... but we'll be cleverer... I guess?
@@ -21,6 +21,7 @@ def main():
         # First optimization measure: if n is prime, then the smallest number m such that n divides m! is n... so m must be equal to n
         if is_prime(n):
             SUM += n
+            # print(f"Current sum at n = {n} -> SUM = {n} + {SUM} = {n + SUM} [[{factorial(n)} mod {n} = {factorial(n) % n}]]")
             #print(f"{n} is prime!")
             continue
         
@@ -28,7 +29,7 @@ def main():
         m_factors = dict()
         
         m = get_smallest_number_m_such_that_n_divides_m_factorial(n, n_factors, m_factors)
-        print(f"Current sum at n = {n} -> SUM = {m} + {SUM} = {m + SUM} [[{factorial(m)} mod {n} = {factorial(m) % n}]]")
+        # print(f"Current sum at n = {n} -> SUM = {m} + {SUM} = {m + SUM} [[{factorial(m)} mod {n} = {factorial(m) % n}]]")
         SUM += m
         
         if n % 10000 == 0:
@@ -79,13 +80,14 @@ def get_next_factorial(n: int, current_dict: dict) -> dict:
 def get_smallest_number_m_such_that_n_divides_m_factorial(upper_bound: int, n_factors: dict, m_factors: dict) -> int:
     m = 2
     while m <= upper_bound:
-        print(f"in big_name_function: m = {m}, m_factors = {m_factors}")
+        #print(f"in big_name_function: m = {m}, m_factors = {m_factors}")
         m_factors = get_next_factorial(m, m_factors)
         #print(f"m = {m}, n_factors = {n_factors}")
         if are_exponents_in_both_dicts(n_factors, m_factors):
             #print(f"Found an m = {m}!")
             return m
-        m = return_next_key_if_prime(m, n_factors)
+        #m = return_next_key_if_prime(m, n_factors)
+        m += 1
     return m
 
 def are_exponents_in_both_dicts(number: dict, factorial: dict) -> bool:
