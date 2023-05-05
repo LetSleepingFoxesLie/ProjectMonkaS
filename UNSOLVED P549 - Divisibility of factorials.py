@@ -37,27 +37,7 @@ def main():
     
     print(f"S({THRESHOLD}) = {SUM}")
 
-def test():
-    
-    q = prime_factorization(20)
-    r = prime_factorization(52)
-
-    print(q)
-    print(r)
-    
-    are_exponents_in_both_dicts(q, r)
-    print("======")
-    s = merge_exponents_from_dicts(q, r)
-    are_exponents_in_both_dicts(q, s)
-
-def gnf_test():
-    
-    test_d = dict()
-    for i in range(1, 150):
-        print(f"Adding the factors of {i}! to test_d")
-        test_d = get_next_factorial(i, test_d)
-
-
+# The good
 def merge_exponents_from_dicts(q: dict, r: dict) -> dict:
     
     # Unpacking both dictionaries, and adding them
@@ -76,7 +56,7 @@ def get_next_factorial(n: int, current_dict: dict) -> dict:
     next_factorial = prime_factorization(n)
     return merge_exponents_from_dicts(current_dict, next_factorial)
 
-# This is fugly
+# The bad
 def get_smallest_number_m_such_that_n_divides_m_factorial(upper_bound: int, n_factors: dict, m_factors: dict) -> int:
     m = 2
     while m <= upper_bound:
@@ -89,6 +69,35 @@ def get_smallest_number_m_such_that_n_divides_m_factorial(upper_bound: int, n_fa
         #m = return_next_key_if_prime(m, n_factors)
         m += 1
     return m
+
+# The ugly
+def get_smallest_number_m_such_that_n_divides_m_factorial_but_optimized(n: int) -> int:
+    # After researching a little bit,
+    # let s(n) = get_smallesT_number_m_such_that_n_divides_m_factorial_but_optimized([args])
+    # If we can write a number n so that n = p_1^k_1 x p_2^k_2,
+    # then s(n) = max(s(p_1^k1), s(p_2^k^2)) apparently.
+    # I damn hope it works!
+    
+    # First thing: factor n
+    n_factors = prime_factorization(n)
+    list_of_prime_products = get_list_of_values_for_each_prime_factor_in_factorization(n_factors)
+    
+    # Then iterate recursively... buw how do we actually compute s(n)?
+    results = list()
+    for product in list_of_prime_products:
+        results.append(get_smallest_number_m_such_that_n_divides_m_factorial_but_optimized(product))
+    
+    return max(results)
+    # Then create the list and populate it
+        
+    pass
+
+# The even uglier
+def get_list_of_values_for_each_prime_factor_in_factorization(d: dict) -> list:
+    l = list()
+    for k, v in d.items():
+        l.append(k ** v)
+    return l
 
 def are_exponents_in_both_dicts(number: dict, factorial: dict) -> bool:
     
