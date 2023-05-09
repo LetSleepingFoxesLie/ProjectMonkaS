@@ -36,3 +36,11 @@ def sieve_of_eratosthenes(upper_bound: int) -> list:
             output_list.append(i)
             
     return output_list
+
+def is_prime(n: int) -> bool:
+    # Probably going to use AKS
+    pass
+
+def factorize(n: int) -> list | dict:
+    # Not quite sure yet.
+    pass
