@@ -19,6 +19,7 @@ prime_list = sieve_of_eratosthenes(1001)
 maximal_primes = 0
 maximal_a: int
 maximal_b: int
+
 # Condition 1: a is even, because b is equal to 2
 for a in range(0, 1002, 2):
     x = 0
