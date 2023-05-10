@@ -38,8 +38,24 @@ def sieve_of_eratosthenes(upper_bound: int) -> list:
     return output_list
 
 def is_prime(n: int) -> bool:
-    # Probably going to use AKS
-    pass
+    # I was planning on implementing the AKS primality test, but after looking at 
+    # https://math.stackexchange.com/questions/2557694/aks-primality-test-vs-trial-division-performance
+    
+    # Then, I looked at the Miller-Rabin primality test... and it's apparently too cumbersome to implement.
+    # It might see use down the line, but for now the good old trial division will be great, right?
+    
+    # Checks against negative integers, 0, 1, and even numbers all at once
+    if n == 2 or n == 3:
+        return True
+    elif n <= 1 or n % 2 == 0:
+        return False
+    else:
+        # The true primality test... by the OG trial division
+        upper_bound = ceil(sqrt(n))
+        for d in range(3, upper_bound, 2):
+            if n % d == 0:
+                return False
+        return True
 
 def factorize(n: int) -> list | dict:
     # Not quite sure yet.
