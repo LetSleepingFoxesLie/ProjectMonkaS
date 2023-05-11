@@ -24,3 +24,14 @@ def reverse_string(s: str) -> str:
         str: Reversed string.
     """
     return s[::-1]
+
+def get_permutations(s: str) -> list:
+    """Generates all possible permutations of a string.
+
+    Args:
+        s (str): A string containing some letters.
+
+    Returns:
+        list: A list with all possible permutations.
+    """
+    pass
