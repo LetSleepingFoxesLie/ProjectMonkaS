@@ -1,4 +1,4 @@
-# While this problem seems very hard at the surface level, a simple shift in perspective really shows how it's a simple proble,.
+# While this problem seems very hard at the surface level, a simple shift in perspective really shows how it's a simple problem.
 # Like, really, really simple.
 
 # But, for that, we're gonna need some combinatorics...
@@ -6,7 +6,6 @@
 from utils.combinatorics import factorial
 
 def main():
-    print(calculate_lattice_paths(2))
     print(calculate_lattice_paths(20))
 
 def calculate_lattice_paths(grid_size: int) -> int:
