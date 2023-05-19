@@ -34,7 +34,7 @@ def get_non_abundant_sum() -> int:
         for j in range(i, len(abundant_numbers_list)):
             index = abundant_numbers_list[i] + abundant_numbers_list[j]
             if index >= THRESHOLD:
-                continue
+                break
             k[index] = False
             
     # 4. Finally, return the sum of all indexes where k[i] is set to True
