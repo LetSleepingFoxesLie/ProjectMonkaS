@@ -19,10 +19,16 @@ def get_abundant_numbers_list() -> list:
     return abundant_numbers_list
 
 def get_non_abundant_sum() -> int:
-    
+
     abundant_numbers_list = get_abundant_numbers_list()
     
     # Let's try to "sieve" through this thing first, shall we?
+    
+    # The idea:
+    # 1. Generate a [True] array of THRESHOLD size
+    # 2. Create two iterators: i and j, which represent their current indexes in abundant_numbers_list
+    # 3. Let v[i] and v[j] be their values. Return the value at their indexes and set array[v[i] + v[j]] to False
+    # This looks a bit like the Sieve of Eratosthenes... doesn't it?
     k = [True] * THRESHOLD
     for i in range(len(abundant_numbers_list)):
         for j in range(i, len(abundant_numbers_list)):
@@ -30,11 +36,13 @@ def get_non_abundant_sum() -> int:
             if index >= THRESHOLD:
                 continue
             k[index] = False
-
+            
+    # 4. Finally, return the sum of all indexes where k[i] is set to True
     s = 0
     for i in range(len(k)):
         s += i if k[i] else 0
-        
+    
+    # I haven't timed it, but it spits the answer in around 2.5-3 seconds?
     return s
 
 
