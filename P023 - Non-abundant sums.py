@@ -18,8 +18,27 @@ def get_abundant_numbers_list() -> list:
         abundant_numbers_list.append(n)
     return abundant_numbers_list
 
-
 def get_non_abundant_sum() -> int:
+    
+    abundant_numbers_list = get_abundant_numbers_list()
+    
+    # Let's try to "sieve" through this thing first, shall we?
+    k = [True] * THRESHOLD
+    for i in range(len(abundant_numbers_list)):
+        for j in range(i, len(abundant_numbers_list)):
+            index = abundant_numbers_list[i] + abundant_numbers_list[j]
+            if index >= THRESHOLD:
+                continue
+            k[index] = False
+
+    s = 0
+    for i in range(len(k)):
+        s += i if k[i] else 0
+        
+    return s
+
+
+def get_non_abundant_sum_unoptimized() -> int:
     
     abundant_numbers_list = get_abundant_numbers_list()
     
